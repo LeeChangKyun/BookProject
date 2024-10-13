@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+  <link th:href="@{/css/Header.css}" rel="stylesheet" />
+  <link th:href="@{/css/Footer.css}" rel="stylesheet" />
+  <style>
+    table {
+        font-weight: 400;
+        border-collapse: collapse;
+        width: 100%;
+        box-shadow: 0 0 0 1px #C0C78C;
+        border-radius: 8px;
+        border: hidden;
+    }
+
+    .commentTable > th,td {
+        padding : 2px 0px  5px 10px;
+    }
+    .btn {
+       background-color: #86AB89;
+    }
+
+    .button {
+        background-color: #ff6f61;
+        color: white;
+        padding: 5px 8px;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        font-size: 16px;
+    }
+  </style>
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+      var sidx =[[${salesBoard.sidx}]];
+      var simage =[[${salesBoard.simage}]];
+
+<!--          function downloadFile() {-->
+<!--          // AJAX 요청으로 다운로드 수 증가-->
+<!--          fetch(`/updateDownloadCount?sidx=${sidx}`, {-->
+<!--              method: 'POST',-->
+<!--              headers: {-->
+<!--                  'Content-Type': 'application/json'-->
+<!--              }-->
+<!--          })-->
+<!--          .then(response => {-->
+<!--              if (response.ok) {-->
+<!--                  // 다운로드 URL로 리디렉션-->
+<!--                  window.location.href = `/download?simage=${simage}`;-->
+<!--              } else {-->
+<!--                  console.error("다운로드 수 증가에 실패했습니다.");-->
+<!--              }-->
+<!--          })-->
+<!--          .catch(error => console.error("에러 발생:", error));-->
+<!--      }-->
+    /*]]>*/
+
+  </script>
+</head>
+<body>
+  <div th:replace="Front/Header :: header"></div>
+  <!--<div class="col-11">-->
+    <div class="row mt-3 mx-1">
+      <div class="container">
+        <h3><b>거래게시판</b></h3>
+        <table class="table table-bordered" style="height:350px">
+          <colgroup>
+            <col style="width: 25%;" />
+            <col style="width: 15%;" />
+            <col style="width: 20%;" />
+            <col style="width: 15%;" />
+            <col style="width: 20%;" />
+          </colgroup>
+          <tbody>
+          <tr>
+            <td rowspan="7" style="text-align: center; vertical-align: middle;">
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<!--                <div class="carousel-indicators">-->
+<!--                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>-->
+<!--                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>-->
+<!--                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>-->
+<!--                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>-->
+<!--                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>-->
+<!--                </div>-->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img th:src="@{/images/{image}(image=${salesBoard.simage})}" class="d-block w-100"  style="height: 400px" alt="1">
+                  </div>
+<!--                  <div class="carousel-item">-->
+<!--                    <img src="https://image.aladin.co.kr/product/34775/68/cover500/k062933120_1.jpg" class="d-block w-100" style="height: 350px" alt="2">-->
+<!--                  </div>-->
+<!--                  <div class="carousel-item">-->
+<!--                    <img src="https://image.aladin.co.kr/product/34692/85/cover500/k022933915_1.jpg" class="d-block w-100" style="height: 350px" alt="3">-->
+<!--                  </div>-->
+<!--                  <div class="carousel-item">-->
+<!--                    <img src="https://image.aladin.co.kr/product/34812/5/cover500/k942933332_1.jpg" class="d-block w-100" style="height: 350px" alt="4">-->
+<!--                  </div>-->
+<!--                  <div class="carousel-item">-->
+<!--                    <img src="https://image.aladin.co.kr/product/34679/13/cover500/k872933810_1.jpg" class="d-block w-100" style="height: 350px" alt="5">-->
+<!--                  </div>-->
+                </div>
+<!--                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">-->
+<!--                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                  <span class="visually-hidden">Previous</span>-->
+<!--                </button>-->
+<!--                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">-->
+<!--                  <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                  <span class="visually-hidden">Next</span>-->
+<!--                </button>-->
+              </div>
+            </td>
+            <td colspan="4">
+              <th:block th:switch="${salesBoard.classification}">
+                <h5 th:case="sale" th:text="'[판매] ' + ${salesBoard.title}"></h5>
+                <h3 th:case="trade" th:text="'[교환] ' + ${salesBoard.title}"></h3>
+                <h3 th:case="sharing" th:text="'[나눔] ' + ${salesBoard.title}"></h3>
+                <h3 th:case="wanted" th:text="'[구해요] ' + ${salesBoard.title}"></h3>
+                <h3 th:case="*" th:text="'[거래완료] ' + ${salesBoard.title}"></h3>
+              </th:block>
+
+              <i class="bi bi-eye"></i> <span th:text="${salesBoard.viewCount}"></span>
+              <i class="bi bi-hand-thumbs-up"></i> <span th:text="${salesBoard.likeCount}"></span>&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <th class="text-center" style="vertical-align:middle;">작성자</th>
+              <td th:text="${salesBoard.nick}"> 닉네임 </td>
+            <th class="text-center" style="vertical-align:middle;">작성일</th>
+              <td th:if="${salesBoard.createDate.isBefore(salesBoard.updateDate)}" th:text="${#temporals.format(salesBoard.updateDate, 'yyyy-MM-dd HH:mm') + ' (수정)'}"></td>
+              <td th:if="${salesBoard.createDate == salesBoard.updateDate}" th:text="${#temporals.format(salesBoard.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+          </tr>
+          <tr>
+            <th class="text-center" style="vertical-align:middle;"> 가격 </th>
+              <td th:if="${salesBoard.price == 0}" style="color: red;">가격 없음</td>
+              <td th:unless="${salesBoard.price == 0}" style="color: red;" th:text="${salesBoard.price}"></td>
+            <th class="text-center" style="vertical-align:middle;"> 지역 </th>
+              <td th:text="${salesBoard.region}"> 거래 지역 </td>
+          </tr>
+          <tr>
+            <th class="text-center" style="vertical-align:middle;"> 책 상세내용 </th>
+  <!--            <td colspan="3" th:text="${salesBoard.booktitle}"> 책 제목 </td>-->
+              <td colspan="3">
+                <span th:text="${salesBoard.booktitle}"></span> |
+                <span th:text="${salesBoard.author}"></span> |
+                <span th:text="${salesBoard.publisher}"></span>
+              </td>
+          </tr>
+  <!--        <tr>-->
+  <!--          <th class="text-center" style="vertical-align:middle;"> 가격 </th>-->
+  <!--            <td colspan="3">-->
+  <!--              <span style="color: red;" th:if="${salesBoard.price == '0'}">나눔</span>-->
+  <!--              <span style="color: red; font-size: 24px;" th:if="${salesBoard.price != '0'}" th:text="${salesBoard.price}">가격</span>-->
+  <!--            </td>-->
+  <!--        </tr>-->
+          <tr>
+            <th class="text-center" style="vertical-align:middle;">상세 설명</th>
+              <td colspan="3" th:text="${salesBoard.content}">글 내용 </td>
+          </tr>
+          <tr>
+            <td colspan="4" class="text-center">
+              <button class="button">바로구매</button>
+              <button class="button">장바구니</button>
+<!--              <button class="button" th:onclick="|location.href='@{download(simage=${salesBoard.simage}, sidx=${salesBoard.sidx})}'|">다운로드</button>-->
+              <button class="button" onclick="downloadFile()">다운로드</button>
+              <span th:text="${salesBoard.downCount}"></span> |
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="col d-flex justify-content-end">
+          <!-- 각종 버튼 부분 -->
+          <button type="button" class="btn text-white" onclick="location.href='/salesboard';">리스트보기</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn text-white" onclick="location.href='/salesboard/write';">글쓰기</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn text-white" style="background-color: #86AB89;">답글쓰기</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn text-white" th:onclick="|location.href='@{delete(sidx=${salesBoard.sidx})}'|">삭제</button>
+          &nbsp;&nbsp;
+          <button type="button" class="btn text-white" th:onclick="|location.href='@{edit(sidx=${salesBoard.sidx})}'|">수정하기</button>
+          &nbsp;&nbsp;
+        </div>
+
+        <!-- 댓글 작성 부분-->
+        <div>
+          <h4><strong>&nbsp;댓글</strong></h4>
+        </div>
+        <div class="card mb-1">
+          <form action="../member/noticeComment" name="commentFrm">
+            <input type="hidden" value="${dto.idx}"  name="idx">
+            <div class="card-body d-flex">
+              <textarea id="reply-content" class="form-control me-2" rows="1" name="content1"></textarea>
+              <button type="submit" id="btn-reply-save" class="btn" >등록</button>
+            </div>
+          </form>
+        </div>
+
+        <table style="border=0;" class="commentTable">
+          <!-- 첫 번째 댓글 -->
+          <tr>
+            <td>
+              <div class="div1" style="width:300px; float:left;">
+                <b> 닉네임</b> [채팅] <span class="badge rounded-pill bg-danger">New </span>
+                <span style="color:gray; font-size:13px">2024.11.1 17:10</span>
+              </div>
+              <div class="div3" style="width:150px; float:right;">
+                <a href="#">수정</a> | <a href="#">삭제</a> | <a href="#">답글</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              댓글 내용<br/>
+              댓글 내용<br/>
+              댓글 내용<br/>
+            </td>
+          </tr>
+          <!--대댓글-->
+          <tr>
+            <td style="padding-left: 30px;">
+              <div class="div1" style="width:300px; float:left;">
+                <span style="color: red;">↳</span><span style="color: red;"> NEW </span><b>닉네임</b> [채팅]
+                <span style="color:gray; font-size:13px">2024.11.1 17:10</span>
+              </div>
+              <div class="div3" style="width:150px; float:right;">
+                <a href="#">수정</a> | <a href="#">삭제</a> | <a href="#">답글</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 30px;">
+              댓글 내ㅇ용<br/>
+              댓글 내ㅇ용<br/>
+            </td>
+          </tr>
+          <!--대댓글-->
+          <tr>
+            <td style="padding-left: 30px;">
+              <div class="div1" style="width:300px; float:left;">
+                <span style="color: red;">↳</span><span style="color: red;"> NEW </span><b>닉네임</b> [채팅]
+                <span style="color:gray; font-size:13px">2024.11.1 17:10</span>
+              </div>
+              <div class="div3" style="width:150px; float:right;">
+                <a href="#">수정</a> | <a href="#">삭제</a> | <a href="#">답글</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 30px;">
+              댓글 내ㅇ용<br/>
+              댓글 내ㅇ용<br/>
+            </td>
+          </tr>
+
+          <!-- 댓글 -->
+          <tr>
+            <td>
+              <div class="div1" style="width:300px; float:left;">
+                <span style="color: red;"> NEW </span><b>닉네임</b> [채팅]
+                <span style="color:gray; font-size:13px">2024.11.1 17:10</span>
+              </div>
+              <div class="div3" style="width:150px; float:right;">
+                <a href="#">수정</a> | <a href="#">삭제</a> | <a href="#">답글</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              댓글 내용<br/>
+              댓글 내용<br/>
+              댓글 내용<br/>
+            </td>
+          </tr>
+          <!--대댓글-->
+          <tr>
+            <td style="padding-left: 30px;">
+              <div class="div1" style="width:300px; float:left;">
+                <span style="color: red;">↳</span><span style="color: red;"> NEW </span><b>닉네임</b> [채팅]
+                <span style="color:gray; font-size:13px">2024.11.1 17:10</span>
+              </div>
+              <div class="div3" style="width:150px; float:right;">
+                <a href="#">수정</a> | <a href="#">삭제</a> | <a href="#">답글</a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding-left: 30px;">
+              댓글 내ㅇ용<br/>
+              댓글 내ㅇ용<br/>
+            </td>
+          </tr>
+        </table>
+      </div> <!--컨테이너 끝-->
+    </div>
+  <div th:replace="Front/Footer :: footer"></div>
+
+</body>
+</html>
